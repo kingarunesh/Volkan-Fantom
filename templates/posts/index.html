@@ -8,25 +8,32 @@
 <!--================Post Slider Area =================-->
 <section class="post_slider_area">
   <div class="post_slider_inner owl-carousel">
+    <!-- slider post -->
+    {% for post in slider_posts %}
     <div class="item">
       <div class="post_s_item">
         <div class="post_img">
-          <img src="{% static 'img/post-slider/post-s-1.jpg' %}" alt="" />
+          <img src="{{post.image.url}}" alt="" height="450" />
         </div>
         <div class="post_text">
-          <a class="cat" href="#">Gadgets</a>
-          <a href="single-blog.html"
-            ><h4>Nest Protect: 2nd Gen Smoke + CO Alarm</h4></a
+          {%comment%}
+          <a class="cat" href="#">{{post.category}}</a>
+          {%endcomment%}
+          <!--  -->
+          {% for tag in post.tag.all %}
+          <a class="cat" href="{% url 'tag_detail' slug=tag.slug %}"
+            >{{tag.title}}</a
           >
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore.
-          </p>
+          {% endfor %}
+          <a href="{% url 'detail' pk=post.id slug=post.slug %}"
+            ><h4>{{post.title}}</h4></a
+          >
+          <p>{{post.content|truncatechars:100}}</p>
           <div class="date">
-            <a href="#"
-              ><i class="fa fa-calendar" aria-hidden="true"></i> March 14,
-              2018</a
-            >
+            <a href="#">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              {{post.publishing_date}}
+            </a>
             <a href="#"
               ><i class="fa fa-comments-o" aria-hidden="true"></i> 05</a
             >
@@ -34,84 +41,8 @@
         </div>
       </div>
     </div>
-    <div class="item">
-      <div class="post_s_item">
-        <div class="post_img">
-          <img src="{% static 'img/post-slider/post-s-2.jpg' %}" alt="" />
-        </div>
-        <div class="post_text">
-          <a class="cat" href="#">Gadgets</a>
-          <a href="single-blog.html"
-            ><h4>Nest Protect: 2nd Gen Smoke + CO Alarm</h4></a
-          >
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore.
-          </p>
-          <div class="date">
-            <a href="#"
-              ><i class="fa fa-calendar" aria-hidden="true"></i> March 14,
-              2018</a
-            >
-            <a href="#"
-              ><i class="fa fa-comments-o" aria-hidden="true"></i> 05</a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <div class="post_s_item">
-        <div class="post_img">
-          <img src="{% static 'img/post-slider/post-s-3.jpg' %}" alt="" />
-        </div>
-        <div class="post_text">
-          <a class="cat" href="#">Gadgets</a>
-          <a href="single-blog.html"
-            ><h4>Nest Protect: 2nd Gen Smoke + CO Alarm</h4></a
-          >
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore.
-          </p>
-          <div class="date">
-            <a href="#"
-              ><i class="fa fa-calendar" aria-hidden="true"></i> March 14,
-              2018</a
-            >
-            <a href="#"
-              ><i class="fa fa-comments-o" aria-hidden="true"></i> 05</a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <div class="post_s_item">
-        <div class="post_img">
-          <img src="{% static 'img/post-slider/post-s-4.jpg' %}" alt="" />
-        </div>
-        <div class="post_text">
-          <a class="cat" href="#">Gadgets</a>
-          <a href="single-blog.html"
-            ><h4>Nest Protect: 2nd Gen Smoke + CO Alarm</h4></a
-          >
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore.
-          </p>
-          <div class="date">
-            <a href="#"
-              ><i class="fa fa-calendar" aria-hidden="true"></i> March 14,
-              2018</a
-            >
-            <a href="#"
-              ><i class="fa fa-comments-o" aria-hidden="true"></i> 05</a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
+    {% endfor %}
+    <!-- end slider post -->
   </div>
 </section>
 <!--================End Post Slider Area =================-->
