@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView
-from posts.models import Post, Category
+from posts.models import Post, Category, Tag
 from django.shortcuts import get_object_or_404
 
 
@@ -36,4 +36,20 @@ class CategoryDetail(ListView):
         context = super(CategoryDetail, self).get_context_data(**kwargs)
         self.category = get_object_or_404(Category, pk=self.kwargs["pk"])
         context["category"] = self.category
+        return context
+
+
+class TagDetail(ListView):
+    model = Post
+    template_name = "tags/tag-detail.html"
+    context_object_name = "posts"
+
+    def get_queryset(self):
+        self.tag = get_object_or_404(Tag, slug=self.kwargs["slug"])
+        return Post.objects.filter(tag=self.tag).order_by("-id")
+    
+    def get_context_data(self, **kwargs):
+        context = super(TagDetail, self).get_context_data(**kwargs)
+        self.tag = get_object_or_404(Tag, slug=self.kwargs["slug"])
+        context["tag"] = self.tag
         return context

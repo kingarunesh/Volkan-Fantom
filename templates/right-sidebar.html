@@ -105,7 +105,9 @@
       {% tags as labels %}
       <!--  -->
       {% for label in labels %}
-      <li><a href="#">{{label.title}}</a></li>
+      <li>
+        <a href="{% url 'tag_detail' label.slug %}">{{label.title}}</a>
+      </li>
       {% endfor %}
     </ul>
   </aside>

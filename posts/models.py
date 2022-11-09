@@ -28,6 +28,9 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def post_count(self):
+        return self.posts.all().count()
 
 
 class Post(models.Model):
