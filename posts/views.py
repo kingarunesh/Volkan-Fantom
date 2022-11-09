@@ -1,6 +1,7 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from posts.models import Post, Category, Tag
 from django.shortcuts import get_object_or_404
+from posts.forms import PostCreationForm
 
 
 class IndexView(ListView):
@@ -54,3 +55,9 @@ class TagDetail(ListView):
         self.tag = get_object_or_404(Tag, slug=self.kwargs["slug"])
         context["tag"] = self.tag
         return context
+
+
+class CreatePostView(CreateView):
+    template_name = "posts/create-post.html"
+    model = Post
+    form_class = PostCreationForm
