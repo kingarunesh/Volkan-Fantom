@@ -1,9 +1,9 @@
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from posts.models import Post, Category, Tag
 from django.shortcuts import get_object_or_404
-from posts.forms import PostCreationForm
+from posts.forms import PostCreationForm, PostUpdateForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
@@ -63,7 +63,6 @@ class TagDetail(ListView):
         return context
 
 
-# @method_decorator(login_required(login_url="users/login"), name="dispatch")
 class CreatePostView(LoginRequiredMixin, CreateView):
     template_name = "posts/create-post.html"
     model = Post
@@ -88,3 +87,12 @@ class CreatePostView(LoginRequiredMixin, CreateView):
                 form.instance.tag.add(existed_tag)
         
         return super(CreatePostView, self).form_valid(form)
+
+
+class UpdatePostView(UpdateView):
+    model = Post
+    template_name = "posts/update-post.html"
+    form_class = PostUpdateForm
+
+    def get_success_url(self):
+        return reverse_lazy("detail", kwargs={"pk": self.object.pk, "slug": self.object.slug})
