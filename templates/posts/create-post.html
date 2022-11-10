@@ -34,11 +34,10 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8">
-        {% if not user.is_authenticated %}
-        <h2>Login</h2>
+        <h2>Add New Post</h2>
         <div class="blog_left_sidebar">
           <!-- form -->
-          <form action="" method="post">
+          <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
             <!-- errors  -->
@@ -87,10 +86,6 @@
           </form>
           <!-- end form -->
         </div>
-
-        {% else %}
-        <h2>You have logged in</h2>
-        {% endif %}
       </div>
       <div class="col-lg-4">{% include 'right-sidebar.html' %}</div>
     </div>
