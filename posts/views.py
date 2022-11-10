@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
@@ -123,3 +123,26 @@ class UpdatePostView(LoginRequiredMixin, UpdateView):
             return HttpResponseRedirect("/")
         
         return super(UpdatePostView, self).get(request, *args, **kwargs)
+
+
+class DeletePostView(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = "posts/delete.html"
+    success_url = "/"
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        if self.object.user == request.user:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        else:
+            return HttpResponseRedirect(self.success_url)
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        if self.object.user != request.user:
+            return HttpResponseRedirect(self.success_url)
+        
+        return super(DeletePostView, self).get(request, *args, **kwargs)

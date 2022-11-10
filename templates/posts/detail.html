@@ -55,6 +55,21 @@
             </div>
           </div>
           <p>{{post.content}}</p>
+
+          {% if post.user == request.user %}
+          <a
+            href="{% url 'update_post' pk=post.id slug=post.slug %}"
+            class="genric-btn info circle"
+          >
+            Update
+          </a>
+          <a
+            href="{% url 'delete_post' pk=post.id slug=post.slug %}"
+            class="genric-btn danger circle"
+            >Delete</a
+          >
+          {% endif %}
+
           <div class="news_d_footer">
             <a href="#"
               ><i class="lnr lnr lnr-heart"></i>Lily and 4 people like this</a
