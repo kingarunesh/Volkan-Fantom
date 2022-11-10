@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.template.defaultfilters import slugify
+import readtime 
 
 
 class Category(models.Model):
@@ -47,6 +48,10 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Post, self).save(*args, **kwargs)
+    
+    def get_readtime(self):
+      result = readtime.of_text(self.content)
+      return result.text
         
     def __str__(self):
         return self.title
