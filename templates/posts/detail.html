@@ -9,12 +9,7 @@
 <!--================Home Banner Area =================-->
 <section class="banner_area">
   <div class="banner_inner d-flex align-items-center">
-    <div
-      class="overlay bg-parallax"
-      data-stellar-ratio="0.9"
-      data-stellar-vertical-offset="0"
-      data-background=""
-    ></div>
+    <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
       <div class="banner_content text-center">
         <h2>Blog Post Details</h2>
@@ -58,26 +53,13 @@
           <p>{{post.content}}</p>
 
           {% if post.user == request.user %}
-          <a
-            href="{% url 'update_post' pk=post.id slug=post.slug %}"
-            class="genric-btn info circle"
-          >
-            Update
-          </a>
-          <a
-            href="{% url 'delete_post' pk=post.id slug=post.slug %}"
-            class="genric-btn danger circle"
-            >Delete</a
-          >
+          <a href="{% url 'update_post' pk=post.id slug=post.slug %}" class="genric-btn info circle"> Update </a>
+          <a href="{% url 'delete_post' pk=post.id slug=post.slug %}" class="genric-btn danger circle">Delete</a>
           {% endif %}
 
           <div class="news_d_footer">
-            <a href="#"
-              ><i class="lnr lnr lnr-heart"></i>Lily and 4 people like this</a
-            >
-            <a class="justify-content-center ml-auto" href="#"
-              ><i class="lnr lnr lnr-bubble"></i>06 Comments</a
-            >
+            <a href="#"><i class="lnr lnr lnr-heart"></i>Lily and 4 people like this</a>
+            <a class="justify-content-center ml-auto" href="#"><i class="lnr lnr lnr-bubble"></i>06 Comments</a>
             <div class="news_socail ml-auto">
               <a href="#"><i class="fa fa-facebook"></i></a>
               <a href="#"><i class="fa fa-twitter"></i></a>
@@ -87,52 +69,65 @@
             </div>
           </div>
         </div>
+
+        <!-- previous and next post -->
         <div class="navigation-area">
           <div class="row">
-            <div
-              class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center"
-            >
+            <!-- previous -->
+            {% if previous %}
+            <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
               <div class="thumb">
-                <a href="#"
-                  ><img
-                    class="img-fluid"
-                    src="{% static 'img/blog/prev.jpg' %}"
-                    alt=""
-                /></a>
+                <a href="{% url 'detail' pk=previous.pk slug=previous.slug %}">
+                  <img class="img-fluid" src="{{ previous.image.url }}" alt="" style="width: 100px; height: 70px" />
+                </a>
               </div>
               <div class="arrow">
-                <a href="#"
-                  ><span class="lnr text-white lnr-arrow-left"></span
-                ></a>
+                <a href="{% url 'detail' pk=previous.pk slug=previous.slug %}"><span class="lnr text-white lnr-arrow-left"></span></a>
               </div>
               <div class="detials">
                 <p>Prev Post</p>
-                <a href="#"><h4>Space The Final Frontier</h4></a>
+                <a href="{% url 'detail' pk=previous.pk slug=previous.slug %}"><h4>{{previous.title}}</h4></a>
               </div>
             </div>
-            <div
-              class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center"
-            >
+            {% else %}
+            <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+              <div class="detials">
+                <h4>No Previous Post</h4>
+              </div>
+            </div>
+            {% endif %}
+            <!-- end previous -->
+
+            <!-- next -->
+            {% if next %}
+            <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
               <div class="detials">
                 <p>Next Post</p>
-                <a href="#"><h4>Telescopes 101</h4></a>
+                <a href="{% url 'detail' pk=next.pk slug=next.slug %}">
+                  <h4>{{next.title}}</h4>
+                </a>
               </div>
               <div class="arrow">
-                <a href="#"
-                  ><span class="lnr text-white lnr-arrow-right"></span
-                ></a>
+                <a href="{% url 'detail' pk=next.pk slug=next.slug %}"><span class="lnr text-white lnr-arrow-right"></span></a>
               </div>
               <div class="thumb">
-                <a href="#"
-                  ><img
-                    class="img-fluid"
-                    src="{% static 'img/blog/next.jpg' %}"
-                    alt=""
-                /></a>
+                <a href="{% url 'detail' pk=next.pk slug=next.slug %}">
+                  <img class="img-fluid" src="{{next.image.url}}" alt="" style="width: 100px; height: 70px" />
+                </a>
               </div>
             </div>
+            {% else %}
+            <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+              <div class="detials">
+                <h4>No Next Post</h4>
+              </div>
+            </div>
+            {% endif %}
+            <!-- end next -->
           </div>
         </div>
+        <!-- previous and next post -->
+
         <div class="comments-area">
           <h4>05 Comments</h4>
           <div class="comment-list">
