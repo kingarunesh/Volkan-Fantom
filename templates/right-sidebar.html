@@ -4,24 +4,24 @@
 {% load custom_tags %}
 
 <div class="blog_right_sidebar">
+  <!-- search -->
   <aside class="single_sidebar_widget search_widget">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search Posts" />
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">
-          <i class="lnr lnr-magnifier"></i>
-        </button>
-      </span>
-    </div>
-    <!-- /input-group -->
+    <form action="{% url 'search' %}" method="GET">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search Posts" name="q" />
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <i class="lnr lnr-magnifier"></i>
+          </button>
+        </span>
+      </div>
+    </form>
     <div class="br"></div>
   </aside>
+  <!-- end search -->
+
   <aside class="single_sidebar_widget author_widget">
-    <img
-      class="author_img rounded-circle"
-      src="{% static 'img/blog/author.png' %}"
-      alt=""
-    />
+    <img class="author_img rounded-circle" src="{% static 'img/blog/author.png' %}" alt="" />
     <h4>Charlie Barber</h4>
     <p>Senior blog writer</p>
     <div class="social_icon">
@@ -31,8 +31,7 @@
       <a href="#"><i class="fa fa-behance"></i></a>
     </div>
     <p>
-      Boot camps have its supporters andit sdetractors. Some people do not
-      understand why you should have to spend money on boot camp when you can
+      Boot camps have its supporters andit sdetractors. Some people do not understand why you should have to spend money on boot camp when you can
       get. Boot camps have itssuppor ters andits detractors.
     </p>
     <div class="br"></div>
@@ -46,15 +45,9 @@
     <!--  -->
     {% for post in posts %}
     <div class="media post_item">
-      <img
-        src="{{post.image.url}}"
-        alt="post"
-        style="width: 100px; height: 75px"
-      />
+      <img src="{{post.image.url}}" alt="post" style="width: 100px; height: 75px" />
       <div class="media-body">
-        <a href="{% url 'detail' pk=post.id slug=post.slug %}"
-          ><h3>{{post.title}}</h3></a
-        >
+        <a href="{% url 'detail' pk=post.id slug=post.slug %}"><h3>{{post.title}}</h3></a>
         <p>Hit : {{post.hit}}</p>
       </div>
     </div>
@@ -65,9 +58,7 @@
   <!-- ned popular posts -->
 
   <aside class="single_sidebar_widget">
-    <a href="#"
-      ><img class="img-fluid" src="{% static 'img/blog/add.jpg' %}" alt=""
-    /></a>
+    <a href="#"><img class="img-fluid" src="{% static 'img/blog/add.jpg' %}" alt="" /></a>
     <div class="br"></div>
   </aside>
 
@@ -79,10 +70,7 @@
       <!--  -->
       {% for category in categories %}
       <li>
-        <a
-          href="{% url 'category_detail' pk=category.id slug=category.slug %}"
-          class="d-flex justify-content-between"
-        >
+        <a href="{% url 'category_detail' pk=category.id slug=category.slug %}" class="d-flex justify-content-between">
           <p>{{category.title}}</p>
           <p>{{category.post_count}}</p>
         </a>

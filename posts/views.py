@@ -8,7 +8,8 @@ from posts.forms import PostCreationForm, PostUpdateForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
-from django.db.models import F
+from django.db.models import F, Q
+
 
 
 
@@ -157,3 +158,18 @@ class DeletePostView(LoginRequiredMixin, DeleteView):
             return HttpResponseRedirect(self.success_url)
         
         return super(DeletePostView, self).get(request, *args, **kwargs)
+
+
+class SearchView(ListView):
+    model = Post
+    template_name = "posts/search.html"
+    paginate_by = 3
+    context_object_name = "posts"
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+
+        if query:
+            return Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query) | Q(tag__title__icontains=query)).order_by("-id").distinct()
+        
+        return Post.objects.all().order_by("-id")
