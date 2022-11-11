@@ -44,6 +44,7 @@ class CategoryDetail(ListView):
     model = Post
     template_name = "categories/category-detail.html"
     context_object_name = "posts"
+    paginate_by = 3
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, pk=self.kwargs["pk"])
@@ -60,6 +61,8 @@ class TagDetail(ListView):
     model = Post
     template_name = "tags/tag-detail.html"
     context_object_name = "posts"
+    paginate_by = 3
+
 
     def get_queryset(self):
         self.tag = get_object_or_404(Tag, slug=self.kwargs["slug"])
