@@ -60,6 +60,9 @@ class Post(models.Model):
     def post_tag(self):
         return ','.join(str(tag) for tag in self.tag.all())
     
+    def comment_count(self):
+        return self.comments.all().count()
+    
     class Meta:
         ordering = ['-id']
 
