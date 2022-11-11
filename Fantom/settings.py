@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'crispy_forms',
+    'captcha',
     'crispy_bootstrap5',
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
@@ -138,6 +139,10 @@ LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = "users:login"
 
 
-# CRISPY FORM
+#   CRISPY FORM
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+#   RECAPTCHA
+RECAPTCHA_PUBLIC_KEY = '6LfJH_0iAAAAAP3HfFGX9LqsPjxeRc3xFTEiteMV'
+RECAPTCHA_PRIVATE_KEY = '6LfJH_0iAAAAALEmw3tH29RrRYHJpZS3Eg6LfY16'

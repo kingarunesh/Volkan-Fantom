@@ -43,9 +43,12 @@ class PostDetail(DetailView, FormMixin):
         return context
     
     def form_valid(self, form):
-        form.instance.post = self.object
-        form.save()
-        return super(PostDetail, self).form_valid(form)
+        if form.is_valid():
+            form.instance.post = self.object
+            form.save()
+            return super(PostDetail, self).form_valid(form)
+        else:
+            return super(PostDetail, self).form_invalid(form)
     
     def post(self, *args, **kwargs):
         self.object = self.get_object()

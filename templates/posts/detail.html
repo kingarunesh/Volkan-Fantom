@@ -155,6 +155,19 @@
         <!-- comment form -->
         <div class="comment-form">
           <h4>Leave a Reply</h4>
+
+          <!-- error -->
+          {% if form.errors %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {% for key, value in form.errors.items %}
+            <!--  -->
+            <strong>{{key}}</strong> {{value}}
+            <!--  -->
+            {% endfor %}
+          </div>
+          {% endif %}
+          <!-- end error -->
+
           {% crispy form %}
         </div>
         <!-- end comment form -->
