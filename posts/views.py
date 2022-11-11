@@ -1,15 +1,15 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from posts.models import Post, Category, Tag
 from django.shortcuts import get_object_or_404
-from posts.forms import PostCreationForm, PostUpdateForm
+from posts.forms import PostCreationForm, PostUpdateForm, CreateCommentForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
 from django.db.models import F, Q
-
+from django.views.generic.edit import FormMixin
 
 
 
@@ -25,10 +25,11 @@ class IndexView(ListView):
         return context
 
 
-class PostDetail(DetailView):
+class PostDetail(DetailView, FormMixin):
     model = Post
     template_name = "posts/detail.html"
     context_object_name = "post"
+    form_class = CreateCommentForm
 
     def get(self, request, *args, **kwargs):
         self.hit = Post.objects.filter(id=self.kwargs["pk"]).update(hit=F("hit")+1)
@@ -38,7 +39,24 @@ class PostDetail(DetailView):
         context = super(PostDetail, self).get_context_data(**kwargs)
         context["previous"] = Post.objects.filter(id__lt=self.kwargs["pk"]).order_by("-id").first()
         context["next"] = Post.objects.filter(id__gt=self.kwargs["pk"]).order_by("id").first()
+        context["form"] = self.get_form()
         return context
+    
+    def form_valid(self, form):
+        form.instance.post = self.object
+        form.save()
+        return super(PostDetail, self).form_valid(form)
+    
+    def post(self, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_valid(form)
+    
+    def get_success_url(self):
+        return reverse("detail", kwargs={"pk": self.object.id, "slug":self.object.slug})
 
 
 class CategoryDetail(ListView):
