@@ -5,36 +5,18 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png" />
     <title>Fantom Blog</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
     <link rel="stylesheet" href="{% static 'vendors/linericon/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
-    <link
-      rel="stylesheet"
-      href="{% static 'vendors/owl-carousel/owl.carousel.min.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="{% static 'vendors/lightbox/simpleLightbox.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="{% static 'vendors/nice-select/css/nice-select.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="{% static 'vendors/animate-css/animate.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="{% static 'vendors/jquery-ui/jquery-ui.css' %}"
-    />
+    <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'vendors/lightbox/simpleLightbox.css' %}" />
+    <link rel="stylesheet" href="{% static 'vendors/nice-select/css/nice-select.css' %}" />
+    <link rel="stylesheet" href="{% static 'vendors/animate-css/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'vendors/jquery-ui/jquery-ui.css' %}" />
     <!-- main css -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
@@ -53,9 +35,7 @@
         <nav class="navbar navbar-expand-lg navbar-light">
           <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <a class="navbar-brand logo_h" href="{% url 'index' %}"
-              ><img src="{% static 'img/logo.png' %}" alt=""
-            /></a>
+            <a class="navbar-brand logo_h" href="{% url 'index' %}"><img src="{% static 'img/logo.png' %}" alt="" /></a>
             <button
               class="navbar-toggler"
               type="button"
@@ -70,10 +50,7 @@
               <span class="icon-bar"></span>
             </button>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div
-              class="collapse navbar-collapse offset"
-              id="navbarSupportedContent"
-            >
+            <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
               <ul class="nav navbar-nav menu_nav">
                 <!-- home -->
                 <li class="nav-item active">
@@ -98,31 +75,21 @@
                 <!-- users pages -->
                 {% if user.is_authenticated %}
                 <li class="nav-item submenu dropdown">
-                  <a
-                    href="#"
-                    class="nav-link dropdown-toggle"
-                    data-toggle="dropdown"
-                    role="button"
-                    aria-haspopup="true"
-                    aria-expanded="false"
+                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
                     >{{user.username}}</a
                   >
                   <ul class="dropdown-menu">
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'create_post' %}">
-                        Add Post
-                      </a>
+                      <a class="nav-link" href="{% url 'create_post' %}"> Add Post </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#"> Change Password </a>
+                      <a class="nav-link" href="{% url 'users:password_change' %}"> Change Password </a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#"> Profile </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'users:logout' %}">
-                        Logout
-                      </a>
+                      <a class="nav-link" href="{% url 'users:logout' %}"> Logout </a>
                     </li>
                   </ul>
                 </li>
@@ -133,17 +100,13 @@
                 </li>
                 <!-- register -->
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'users:register' %}"
-                    >Register</a
-                  >
+                  <a class="nav-link" href="{% url 'users:register' %}">Register</a>
                 </li>
                 {% endif %}
               </ul>
               <ul class="nav navbar-nav navbar-right ml-auto">
                 <li class="nav-item">
-                  <a href="#" class="search"
-                    ><i class="lnr lnr-magnifier"></i
-                  ></a>
+                  <a href="#" class="search"><i class="lnr lnr-magnifier"></i></a>
                 </li>
               </ul>
             </div>
@@ -162,10 +125,7 @@
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="single-footer-widget">
               <h6 class="footer_title">About Us</h6>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore dolore magna aliqua.
-              </p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6 col-sm-6">
@@ -241,9 +201,7 @@
             </div>
           </div>
         </div>
-        <div
-          class="row footer-bottom d-flex justify-content-between align-items-center"
-        >
+        <div class="row footer-bottom d-flex justify-content-between align-items-center">
           <p class="col-lg-12 footer-text text-center">
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             Copyright &copy;
