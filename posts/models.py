@@ -59,3 +59,6 @@ class Post(models.Model):
     
     def post_tag(self):
         return ','.join(str(tag) for tag in self.tag.all())
+    
+    class Meta:
+        ordering = ['-id']
