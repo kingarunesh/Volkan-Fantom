@@ -16,23 +16,15 @@
           <img src="{{post.image.url}}" alt="" height="450" />
         </div>
         <div class="post_text">
-          <a
-            class="cat"
-            href="{% url 'category_detail' pk=post.category.id slug=post.category.slug %}"
-            >{{post.category}}</a
-          >
-          <a href="{% url 'detail' pk=post.id slug=post.slug %}"
-            ><h4>{{post.title}}</h4></a
-          >
+          <a class="cat" href="{% url 'category_detail' pk=post.category.id slug=post.category.slug %}">{{post.category}}</a>
+          <a href="{% url 'detail' pk=post.id slug=post.slug %}"><h4>{{post.title}}</h4></a>
           <p>{{post.content|truncatechars:100}}</p>
           <div class="date">
             <a href="#">
               <i class="fa fa-calendar" aria-hidden="true"></i>
               {{post.publishing_date}}
             </a>
-            <a href="#">
-              <i class="fa fa-comments-o" aria-hidden="true"></i> 05
-            </a>
+            <a href="#"> <i class="fa fa-comments-o" aria-hidden="true"></i> 05 </a>
           </div>
         </div>
       </div>
@@ -59,23 +51,15 @@
             <div class="blog_text">
               <div class="blog_text_inner">
                 {% for tag in post.tag.all %}
-                <a class="cat" href="{% url 'tag_detail' tag.slug %}"
-                  >{{tag.title}}</a
-                >
+                <a class="cat" href="{% url 'tag_detail' tag.slug %}">{{tag.title}}</a>
                 {% endfor %}
                 <a href="{% url 'detail' pk=post.id slug=post.slug %}">
                   <h4>{{ post.title }}</h4>
                 </a>
                 <p>{{ post.content|truncatechars:150 }}</p>
                 <div class="date">
-                  <a href="#"
-                    ><i class="fa fa-calendar" aria-hidden="true"></i
-                    >{{post.publishing_date}}</a
-                  >
-                  <a href="#"
-                    ><i class="fa fa-comments-o" aria-hidden="true"></i>
-                    {{post.get_readtime}}</a
-                  >
+                  <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>{{post.publishing_date}}</a>
+                  <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> {{post.get_readtime}}</a>
                 </div>
               </div>
             </div>
@@ -83,39 +67,70 @@
           {% endfor %}
           <!-- end posts -->
 
+          <!-- pagination -->
+          {% if is_paginated %}
           <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
+              <!-- previous -->
+              {% if page_obj.has_previous %}
               <li class="page-item">
+                <a href="?page={{page_obj.previous_page_number}}" class="page-link" aria-label="Previous">
+                  <span aria-hidden="true">
+                    <span class="lnr lnr-chevron-left"></span>
+                  </span>
+                </a>
+              </li>
+              {% else %}
+              <li class="page-item disabled">
                 <a href="#" class="page-link" aria-label="Previous">
                   <span aria-hidden="true">
                     <span class="lnr lnr-chevron-left"></span>
                   </span>
                 </a>
               </li>
-              <li class="page-item">
-                <a href="#" class="page-link">01</a>
-              </li>
+              {% endif %}
+              <!-- end previous -->
+
+              <!-- pages -->
+              {% for i in paginator.page_range%}
+              <!--  -->
+              {% if page_obj.number == i %}
               <li class="page-item active">
-                <a href="#" class="page-link">02</a>
+                <a href="#" class="page-link">{{ i }}</a>
               </li>
+              {% else %}
+
               <li class="page-item">
-                <a href="#" class="page-link">03</a>
+                <a href="?page={{i}}" class="page-link">{{ i }}</a>
               </li>
+              {% endif %}
+              <!--  -->
+              {% endfor %}
+              <!-- end pages -->
+
+              <!-- next page -->
+              {% if page_obj.has_next %}
               <li class="page-item">
-                <a href="#" class="page-link">04</a>
+                <a href="?page={{page_obj.next_page_number}}" class="page-link" aria-label="Next">
+                  <span aria-hidden="true">
+                    <span class="lnr lnr-chevron-right"></span>
+                  </span>
+                </a>
               </li>
-              <li class="page-item">
-                <a href="#" class="page-link">09</a>
-              </li>
-              <li class="page-item">
+              {% else %}
+              <li class="page-item disabled">
                 <a href="#" class="page-link" aria-label="Next">
                   <span aria-hidden="true">
                     <span class="lnr lnr-chevron-right"></span>
                   </span>
                 </a>
               </li>
+              {% endif %}
+              <!-- end next page -->
             </ul>
           </nav>
+          {% endif %}
+          <!-- end pagination -->
         </div>
       </div>
       <!-- end posts -->
