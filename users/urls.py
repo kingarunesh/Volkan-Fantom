@@ -12,5 +12,6 @@ urlpatterns = [
     path("password-change/", authView.PasswordChangeView.as_view(), name="password_change"),
     path("password-change-done/", authView.PasswordChangeDoneView.as_view(), name="password_change_done"),
     path("update-profile/<slug:slug>/", UserUpdateProfileView.as_view(), name="update_profile"),
-    path("profile/", UserProfileView.as_view(), name="profile")
+    path("profile/", UserProfileView.as_view(), name="profile"),
+    path("posts/<int:pk>/", UserPostView.as_view(), name="user_posts")
 ]

@@ -62,3 +62,13 @@ class UserProfileView(LoginRequiredMixin, ListView):
     
     def get_queryset(self):
         return Post.objects.filter(user=self.request.user).order_by("-id")
+
+
+class UserPostView(ListView):
+    template_name = "users/user-post.html"
+    model = Post
+    context_object_name = "posts"
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Post.objects.filter(user=self.kwargs["pk"])
