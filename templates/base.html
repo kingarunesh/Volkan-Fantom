@@ -1,5 +1,9 @@
 {% load static %}
 
+<!--  -->
+
+{% load custom_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,7 +27,9 @@
   </head>
   <body>
     <!--================Header Menu Area =================-->
+
     <header class="header_area">
+      {% include 'messages.html' %}
       <div class="logo_part">
         <div class="container">
           <a class="logo" href="{% url 'index' %}">
@@ -58,11 +64,22 @@
                 </li>
 
                 <!-- category -->
-                <li class="nav-item">
-                  <a class="nav-link" href="category.html">Category</a>
+                <li class="nav-item submenu dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Category
+                  </a>
+                  <ul class="dropdown-menu">
+                    {% categories as categories %}
+                    <!--  -->
+                    {% for category in categories %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'category_detail' pk=category.id slug=category.slug %}"> {{category.title}} </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
                 </li>
 
-                <!-- archive -->
+                <!-- users -->
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'users:users_list' %}">Users</a>
                 </li>

@@ -2,6 +2,7 @@ from django.views.generic import CreateView, UpdateView, ListView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from users.forms import RegisterForm
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from users.models import UserProfile
@@ -28,10 +29,11 @@ class UserLogoutView(LogoutView):
     template_name = "users/login.html"
 
 
-class UserUpdateProfileView(LoginRequiredMixin, UpdateView):
+class UserUpdateProfileView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = UserProfile
     template_name = "users/profile-update.html"
     form_class = UserProfileForm
+    success_message = "Your profile has been updated."
 
     def form_valid(self, form):
         form.instance.user = self.request.user
