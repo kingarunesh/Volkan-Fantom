@@ -1,10 +1,11 @@
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from users.forms import RegisterForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from users.models import UserProfile
+from posts.models import Post
 from users.forms import UserProfileForm
 
 
@@ -46,3 +47,18 @@ class UserUpdateProfileView(LoginRequiredMixin, UpdateView):
             return HttpResponseRedirect("/")
         
         return super(UserUpdateProfileView, self).get(request, *args, **kwargs)
+
+
+class UserProfileView(LoginRequiredMixin, ListView):
+    model = Post
+    template_name = "users/profile.html"
+    context_object_name = "posts"
+    paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super(UserProfileView, self).get_context_data(**kwargs)
+        context["profile"] = UserProfile.objects.get(user=self.request.user)
+        return context
+    
+    def get_queryset(self):
+        return Post.objects.filter(user=self.request.user).order_by("-id")
